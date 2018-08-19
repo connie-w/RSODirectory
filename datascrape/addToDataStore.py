@@ -1,5 +1,7 @@
 # Imports the Google Cloud client library
 from google.cloud import datastore
+# Imports array of all RSOs
+from convert import all_clubs
 
 # explicitlly set file to use as service account credentials
 # assumes that the service account json is stored under the same directory
@@ -12,18 +14,20 @@ datastore_client = datastore.Client.from_service_account_json(
 # of code to initialize the datastore client instead
 #datastore_client = datastore.Client()
 
-# The kind for the new entity, this is like the "type"
+# The kind for the new entity, this is like the "type", or is equivilant to
+# the table in SQL
 kind = 'RSO'
-# The name/ID for the new entity
-name = 'sampletask1'
-# The Cloud Datastore key for the new entity
-task_key = datastore_client.key(kind, name)
 
-# Prepares the new entity
-task = datastore.Entity(key=task_key)
-task['description'] = 'Test 08182018'
+for i in range(2): #replace with len(all_clubs) when not testing
+    curr = all_clubs[i] 
+    name = curr[0]
+    task_key = datastore_client.key(kind, name)
+    task = datastore.Entity(key=task_key)
+    task['description'] = curr[1]
+    task['email'] = curr[2]
+    task['category'] = curr[3]
+    task['logo'] = curr[4]
+    datastore_client.put(task)
+    print('saved: ' + name)
 
-# Saves the entity
-datastore_client.put(task)
-
-print('Saved {}: {}'.format(task.key.name, task['description']))
+#print('Saved {}: {}'.format(task.key.name, task['description']))
