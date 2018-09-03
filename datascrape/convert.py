@@ -7,6 +7,7 @@ with open("rso-data.csv",'r') as csvfile:
     next(reader)
     for row in reader:
         name = row.pop(1)
+        row.pop(1)
         description = row.pop(1)
         email = row.pop(1)
         category = row.pop(1) 
@@ -16,4 +17,4 @@ with open("rso-data.csv",'r') as csvfile:
         club = [name,description,email,category,logo,fb]
         all_clubs.append(club)
         
-print(len(all_clubs))
+# print(len(all_clubs))
