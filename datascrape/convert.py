@@ -10,8 +10,10 @@ with open("rso-data.csv",'r') as csvfile:
         description = row.pop(1)
         email = row.pop(1)
         category = row.pop(1) 
-        logo = row.pop(1) 
-        club = [name,description,email,category,logo]
+        logo = row.pop(1)
+        fb = row.pop(1)
+        
+        club = [name,description,email,category,logo,fb]
         all_clubs.append(club)
         
 print(len(all_clubs))
