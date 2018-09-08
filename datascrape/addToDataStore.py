@@ -22,13 +22,15 @@ kind = 'RSO'
 for i in range(2): #replace with len(all_clubs) when not testing
     curr = all_clubs[i] 
     name = curr[0]
-    task_key = datastore_client.key(kind, name)
+    gid = curr[1]
+    task_key = datastore_client.key(kind, gid)
     task = datastore.Entity(key=task_key)
-    task['description'] = curr[1]
-    task['email'] = curr[2]
-    task['category'] = curr[3]
-    task['logo'] = curr[4]
-    task['fb'] = curr[5]
+    task['name'] = name
+    task['description'] = curr[2]
+    task['email'] = curr[3]
+    task['category'] = curr[4]
+    task['logo'] = curr[5]
+    task['fb'] = curr[6]
     datastore_client.put(task)
     print('saved: ' + name)
 
