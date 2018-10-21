@@ -20,6 +20,8 @@ get_table <- function(page, count) {
   name_text <- html_nodes(page,".grpl-name a") %>% html_text()
   df <- data.frame(name_text, stringsAsFactors = FALSE)
   
+  df$id <- html_nodes(page, "div.grpl-grp.clearfix") %>% html_attr("id")
+  
   more_info_nodes <- html_nodes(page, ".grpl-moreinfo a") %>% html_attr("href")
   df$more_info <- more_info_nodes
   

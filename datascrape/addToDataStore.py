@@ -1,6 +1,6 @@
 # Imports the Google Cloud client library
 from google.cloud import datastore
-# Imports array of all RSOs
+# Imports array of all RSOs 
 from convert import all_clubs
 
 # explicitlly set file to use as service account credentials
@@ -18,15 +18,19 @@ datastore_client = datastore.Client.from_service_account_json(
 # the table in SQL
 kind = 'RSO'
 
+# only adding a subset of all clubs for testing purposes
 for i in range(2): #replace with len(all_clubs) when not testing
     curr = all_clubs[i] 
     name = curr[0]
-    task_key = datastore_client.key(kind, name)
+    gid = curr[1]
+    task_key = datastore_client.key(kind, gid)
     task = datastore.Entity(key=task_key)
-    task['description'] = curr[1]
-    task['email'] = curr[2]
-    task['category'] = curr[3]
-    task['logo'] = curr[4]
+    task['name'] = name
+    task['description'] = curr[2]
+    task['email'] = curr[3]
+    task['category'] = curr[4]
+    task['logo'] = curr[5]
+    task['fb'] = curr[6]
     datastore_client.put(task)
     print('saved: ' + name)
 
