@@ -4,77 +4,103 @@
 -->
 
 <html lang="en-us">
-    <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>RSO Directory</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    </head>
-    <body>
-        <div class="container-fluid">
-            <nav class="navbar">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <a class="navbar-brand" href="#">RSO Directory</a>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-                </ul>
-              </div>
-            </nav>
-
-            <!-- placeholder -->
-            <div class="col-sm-4"></div>
-
-            <!-- Search form -->
-            <div class="col-sm-8">
-                <form>
-                    <input class="form-control input-lg" type="text" placeholder="Search" aria-label="Search">
-                    <div><i class="fa fa-search" aria-hidden="true"></i></div>
-                </form>
-            </div>
+  <title>RSO Directory</title>
 
 
-            <div class="row">
-                <div class="col-sm-4 panel">
-                    <ul class="list-group">
-                        <h3>Filters</h3>
-                        <li class="list-group-item">First item</li>
-                        <li class="list-group-item">Second item</li>
-                        <li class="list-group-item">Third item</li>
-                    </ul>
-                </div>
-            </div>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><strong>RSO</strong> DIRECTORY</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- placeholder -->
+  <div class="col-sm-4"></div>
+
+  <!-- Search form -->
+  <div class="col-sm-8">
+    <form>
+      <input class="form-control input-lg" type="text" placeholder="Search" aria-label="Search">
+      <div><i class="fa fa-search" aria-hidden="true"></i></div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4 filter-container">
+      <ul class="list-group panel" id="filters">
+        <h3>Filters</h3>
+        <li class="list-group-item">First item</li>
+        <li class="list-group-item">Second item</li>
+        <li class="list-group-item">Third item</li>
+      </ul>
+    </div>
+
+    <div class="col-sm-8" class = "media" id="rsos">
+      <div class="rso-content">
+        <div class="media-left">
+          <a href="#">
+            <img class="img-fluid" src="http://placehold.it/700x300" alt="" id="logo">
+          </a>
         </div>
-
-        <div class="col-sm-8">
-            <div class="panel"></div>
-
+        <div class="media-body">
+          <div>
+          <h3>Project One</h3>
+          <p class="tag">
+            tag
+          </p>
         </div>
+        </br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+          <div class="icons">
+            <i class="fab fa-facebook fa-2x"></i>
+            <i class="fas fa-globe fa-2x"></i>
+            <i class="far fa-envelope fa-2x"></i>
+          </div>
+        </div>
+      </div>
 
-        <footer>
-            <ul class="pagination">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-            </ul>
-        </footer>
-    </body>
+    </div>
+  </div>
+  </div>
+
+
+
+
+
+  <footer>
+    <ul class="pagination">
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+    </ul>
+  </footer>
+</body>
+
 </html>
