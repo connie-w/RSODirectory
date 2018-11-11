@@ -5,6 +5,8 @@ udev-rsodirectory-53eb9f38363b.json
 __pycache__/
 *.py[cod]
 *$py.class
+node_modules/
+.next/
 
 # OS generated files #
 ######################
