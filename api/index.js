@@ -1,5 +1,5 @@
-const express = require('express');
-const { query } = require('./query.js');
+import express from "express";
+import { query } from "./query.js";
 
 const app = express();
 
@@ -9,15 +9,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/rsos', async (req, res, next) => {
+app.get('/rsos', async (req, res) => {
   const result = await query('SELECT * FROM rso LIMIT 20');
   res.json(result.rows);
 });
 
-// !!!VULNERABLE TO SQL INJECTION: DO NOT USE IN PRODUCTION!!!
 app.get('/rsos/search', async (req, res, next) => {
   const search = req.query.query;
-  const result = await query('SELECT *, ts_rank_cd(searchable, to_tsquery(\'' + search + ':*\')) AS rank FROM rso WHERE searchable @@ to_tsquery(\'' + search + ':*\') ORDER BY rank DESC LIMIT 20;');
+  const qs = {
+    name: 'search',
+    text: `SELECT r.id, sum(rank) AS sum, r.name, r.description, r.category, r.logo FROM (
+      SELECT *, ts_rank_cd(searchable, plainto_tsquery($1)) AS rank
+      FROM rso WHERE searchable @@ plainto_tsquery($1)
+      UNION ALL
+      SELECT *, 1.0 as rank FROM rso WHERE lower(name) LIKE lower($2)
+    ) AS result JOIN rso r ON result.id = r.id GROUP BY r.id, r.name, r.description, r.category, r.logo ORDER BY sum DESC LIMIT 20;`,
+    values: [search, '%' + search + '%']
+  };
+  const result = await query(qs);
   res.json(result.rows);
 });
 
