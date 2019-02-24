@@ -1,32 +1,44 @@
 package main
 
 import (
-	"database/sql"
+	"context"
 	"encoding/csv"
+	"fmt"
 	"log"
 	"os"
 
-	"github.com/lib/pq"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+const connStr = "mongodb://localhost:27017"
+const csvFile = "../datascrape/rso-data-utf8.csv"
+
+type rso struct {
+	Name string
+	Description string
+	Category string
+	Logo string
+}
+
 func main() {
-	connStr := os.Args[1]
-	db, err := sql.Open("postgres", connStr)
+	opts := options.Client().ApplyURI(connStr)
+	client, err := mongo.Connect(context.TODO(), opts)
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	txn, err := db.Begin()
+	// Check the connection
+	err = client.Ping(context.TODO(), nil)
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	stmt, err := txn.Prepare(pq.CopyIn("rso", "name", "description", "category", "logo"))
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Println("Connected to database")
 
-	file, err := os.Open("../datascrape/rso-data-utf8.csv")
+	file, err := os.Open(csvFile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,31 +48,19 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// i = 0 is the column names
+	var rsos []interface{}
 	for i := 1; i < len(records); i++ {
 		record := records[i]
-		name := record[1]
-		description := record[4]
-		category := record[6]
-		logo := record[7]
-
-		_, err = stmt.Exec(name, description, category, logo)
-		if err != nil {
-			log.Fatal(err)
-		}
+		rsos = append(rsos, rso{
+			Name: record[1],
+			Description: record[4],
+			Category: record[6],
+			Logo: record[7],
+		})
 	}
 
-	_, err = stmt.Exec()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = stmt.Close()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = txn.Commit()
+	collection := client.Database("rsodirectory").Collection("rsos")
+	_, err = collection.InsertMany(context.TODO(), rsos)
 	if err != nil {
 		log.Fatal(err)
 	}

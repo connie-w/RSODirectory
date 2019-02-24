@@ -1,7 +1,8 @@
-import express from "express";
-import { query } from "./query.js";
+const express = require('express');
+const mongo = require('./mongo.js');
 
 const app = express();
+let db;
 
 app.use((req, res, next) => {
   console.log(req.originalUrl);
@@ -10,24 +11,26 @@ app.use((req, res, next) => {
 });
 
 app.get('/rsos', async (req, res) => {
-  const result = await query('SELECT * FROM rso LIMIT 20');
-  res.json(result.rows);
+  const rows = await db.collection('rsos').find({}, {limit: 20}).toArray();
+  res.json(rows);
 });
 
 app.get('/rsos/search', async (req, res, next) => {
   const search = req.query.query;
-  const qs = {
-    name: 'search',
-    text: `SELECT r.id, sum(rank) AS sum, r.name, r.description, r.category, r.logo FROM (
-      SELECT *, ts_rank_cd(searchable, plainto_tsquery($1)) AS rank
-      FROM rso WHERE searchable @@ plainto_tsquery($1)
-      UNION ALL
-      SELECT *, 1.0 as rank FROM rso WHERE lower(name) LIKE lower($2)
-    ) AS result JOIN rso r ON result.id = r.id GROUP BY r.id, r.name, r.description, r.category, r.logo ORDER BY sum DESC LIMIT 20;`,
-    values: [search, '%' + search + '%']
-  };
-  const result = await query(qs);
-  res.json(result.rows);
+  const rows = await db.collection('rsos').find({
+      $or: [
+        { $text: { $search: search } },
+        { name: { $regex: search, $options: 'i' } }
+        /* Don't use this. Sanitize search query or something */
+        /* Very inefficient. Look for alternatives */
+      ]
+  })
+    .project({ score: { $meta: 'textScore' }})
+    .sort({ score: { $meta: 'textScore'} }).toArray();
+  res.json(rows);
 });
 
-app.listen(3081);
+(async () => {
+  db = await mongo();
+  app.listen(3081);
+})();
