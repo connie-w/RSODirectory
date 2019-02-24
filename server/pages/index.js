@@ -55,8 +55,17 @@ class Search extends React.Component {
 
   render () {
     return (<form onSubmit={this.handleSubmit}>
-      <input className='form-control input-lg' type='text' onChange={this.handleChange} value={this.state.value} placeholder='Search' aria-label='Search' />
-      <div style={{cursor: 'pointer'}} onClick={this.handleSubmit}><i className='fa fa-search' aria-hidden='true' /></div>
+      <input
+        className='form-control input-lg'
+        type='text'
+        onChange={this.handleChange}
+        value={this.state.value}
+        placeholder='Search'
+        aria-label='Search'
+      />
+      <div style={{cursor: 'pointer'}} onClick={this.handleSubmit}>
+        <i className='fa fa-search' aria-hidden='true' />
+      </div>
       <input type='submit' style={{display: 'none'}} />
     </form>);
   }
