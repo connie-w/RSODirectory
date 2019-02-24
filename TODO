@@ -1,0 +1,32 @@
+- Frontend
+    - Ideally this would be done in React, but can also be done in raw form and
+      then converted
+    - Clean up CSS overall, make more similar to figma
+    - Basically make all pages except for search page. This includes:
+        - Single RSO page
+        - Calendar
+        - Pages listed in design (which haven't been made yet)
+    - Search page needs filters and stuff
+    - Figure out what framework to use. Next.js?
+- Design
+    - Lots of pages to still make:
+        - Account page
+        - Management pages
+            - RSO
+            - Account
+- Backend
+    - OpenAPI for design?
+    - Search
+        - Pagination
+        - Filters
+        - Tags
+        - Adding socials to RSO documents
+    - Singular RSO
+    - Management
+    - Accounts
+- Search
+    - What should we use for search?
+    - How good does search have to be?
+- Deployment
+    - Docker??
+    - MongoDB
