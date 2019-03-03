@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  description: ""
   version: "1.0.0"
   title: "RSO Directory API"
   termsOfService: "http://swagger.io/terms/"
@@ -42,12 +42,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - in: query
-          name: query
-          schema:
-            type: String
-          required: true
-          description: term to search for
+      - name: "search"
+        in: "query"
+        type: "string"
+        required: true
+        description: "term to search for"
+      responses:
+        200:
+          description: "A"
   /rsos/category:
     get:
       tags:
@@ -58,12 +60,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - in: query
-          name: category
-          schema:
-            type: String
-          required: true
-          description: "category of the RSOs to return. Valid categories found through rsos/allcategories"
+      - in: "query"
+        name: "category"
+        type: "string"
+        required: true
+        description: "category of the RSOs to return. Valid categories found through rsos/allcategories"
+      responses:
+        200:
+          description: "A"
   /rsos/allcategories:
     get:
       tags:
@@ -73,3 +77,6 @@ paths:
       operationId: "allCategories"
       produces:
       - "application/json"
+      responses:
+        200:
+          description: "A"
